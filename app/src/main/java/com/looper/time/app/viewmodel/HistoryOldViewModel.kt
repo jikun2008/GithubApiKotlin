@@ -17,7 +17,7 @@ class HistoryOldViewModel(app: Application) : BaseViewModel(app) {
 
     fun queryListBySql() {
         viewModelScope.launch(Dispatchers.IO) {
-            DbUtils.db.getGitHubResponseDao().getGitHubResponses()
+            DbUtils.db.getGitHubResponseDao().getGitHubResponsesByFlow()
                 .flowOn(Dispatchers.IO)
                 .collect {
                     dataList.postValue(it)

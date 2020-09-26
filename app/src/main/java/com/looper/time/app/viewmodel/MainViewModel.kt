@@ -36,6 +36,11 @@ class MainViewModel(app: Application) : BaseViewModel(app) {
             withContext(Dispatchers.IO) {
                 //这里用了死循环 是因为  viewModelScope
                 // 是ViewModle内部已经实现生命周期   onDestory的时候会 取消协程的
+                var list = DbUtils.db.getGitHubResponseDao().getGitHubResponses()
+                if (list.isNotEmpty()) {
+                    errorInfo.postValue("查询本地数据成功")
+                    gitHubResponse.postValue(list[0])
+                }
                 while (true) {
                     count.postValue(count.value?.plus(1))
                     try {

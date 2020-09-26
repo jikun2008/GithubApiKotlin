@@ -9,10 +9,12 @@ import kotlinx.coroutines.flow.Flow
  */
 @Dao
 interface GitHubResponseDao {
+    //这里 Flow类似RxJava的发射流
+    @Query("SELECT * FROM gitHubResponse order by uid desc")
+    fun getGitHubResponsesByFlow(): Flow<List<GitHubResponse>>
 
     @Query("SELECT * FROM gitHubResponse order by uid desc")
-    fun getGitHubResponses(): Flow<List<GitHubResponse>>
-
+    suspend fun getGitHubResponses(): List<GitHubResponse>
 
     @Insert
     suspend fun insertGitHubResponse(gitHubResponse: GitHubResponse)
